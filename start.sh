@@ -15,7 +15,7 @@ openship $ARGS &
 OPENSHIP_PID=$!
 
 # 等 API 就绪
-echo "Waiting for Openship API..."
+echo "Waiting for Openship API..."fei@local.com
 for i in $(seq 1 60); do
   if curl -sf http://localhost:4000/api/health > /dev/null 2>&1; then
     echo "API is up"
@@ -30,7 +30,7 @@ if [ -f "$OPENSHIP_HOME/internal-token" ] && [ -n "$ADMIN_PASSWORD" ]; then
   if curl -sf -X POST http://localhost:4000/api/system/bootstrap-admin \
     -H "X-Internal-Token: $TOKEN" \
     -H "Content-Type: application/json" \
-    -d "{\"name\":\"fei\",\"email\":\"fei@local\",\"password\":\"$ADMIN_PASSWORD\"}" > /dev/null 2>&1; then
+    -d "{\"name\":\"fei\",\"email\":\"fei@local.com\",\"password\":\"$ADMIN_PASSWORD\"}" > /dev/null 2>&1; then
     echo "Admin account created"
   else
     echo "Admin already exists, skipped"
