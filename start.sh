@@ -17,7 +17,7 @@ OPENSHIP_PID=$!
 # 等 API 就绪
 echo "Waiting for Openship API..."
 for i in $(seq 1 60); do
-  if curl -sf http://localhost:4000/api/health > /dev/null 2>&1; then
+  if curl -sf http://localhost:4000/api/health ; then
     echo "API is up"
     break
   fi
@@ -30,10 +30,10 @@ if [ -f "$OPENSHIP_HOME/internal-token" ] && [ -n "$ADMIN_PASSWORD" ]; then
   if curl -sf -X POST http://localhost:4000/api/system/bootstrap-admin \
     -H "X-Internal-Token: $TOKEN" \
     -H "Content-Type: application/json" \
-    -d "{\"name\":\"fei\",\"email\":\"fei@local.com\",\"password\":\"$ADMIN_PASSWORD\"}" > /dev/null 2>&1; then
+    -d "{\"name\":\"fei\",\"email\":\"fei@local.com\",\"password\":\"$ADMIN_PASSWORD\"}" ; then
     echo "Admin account created"
   else
-    echo "Bootstrap skipped, trying admin password reset..."; if curl -sf -X POST http://localhost:4000/api/system/reset-admin-password -H "X-Internal-Token: $TOKEN" -H "Content-Type: application/json" -d "{\"name\":\"fei\",\"email\":\"fei@local.com\",\"password\":\"$ADMIN_PASSWORD\"}" > /dev/null 2>&1; then echo "Admin password reset to env value"; else echo "Admin reset failed"; fi
+    echo "Bootstrap skipped, trying admin password reset..."; if curl -sf -X POST http://localhost:4000/api/system/reset-admin-password -H "X-Internal-Token: $TOKEN" -H "Content-Type: application/json" -d "{\"name\":\"fei\",\"email\":\"fei@local.com\",\"password\":\"$ADMIN_PASSWORD\"}" ; then echo "Admin password reset to env value"; else echo "Admin reset failed"; fi
   fi
 fi
 
