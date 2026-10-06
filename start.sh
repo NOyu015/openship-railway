@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -e; command -v curl >/dev/null 2>&1 || (apt-get update -qq && apt-get install -y -qq curl >/dev/null 2>&1)
 
 PORT=${PORT:-3001}
 
